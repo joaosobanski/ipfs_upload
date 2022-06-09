@@ -1,19 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
 
 import { useState } from 'react'
-import { create } from 'ipfs-http-client'
-
+import { create } from 'ipfs-http-client' 
 const client = create('https://ipfs.infura.io:5001/api/v0')
 
 function App() {
   const [fileUrl, updateFileUrl] = useState(``)
   async function onChange(e) {
     const file = e.target.files[0]
+    console.log(file)
     try {
       const added = await client.add(file)
       console.log(added);
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`
+      const url = `https://ipfs.io/ipfs/${added.path}`
       updateFileUrl(url)
     } catch (error) {
       console.log('Error uploading file: ', error)
@@ -33,7 +32,7 @@ function App() {
           )
         }
 
-        <h6>{fileUrl}</h6>
+        <a target='_blank' href={fileUrl}>{fileUrl}</a> 
 
       </header>
 
